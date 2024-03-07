@@ -1,36 +1,72 @@
-package ED;
+package ED.Pilas;
 
 public class Pila {
 
     //Sistema LIFO
 
-    private Object top;
-    private Object before;
-    private int enPila;
+    private ElementoPila top;
+    private int elemEnPila = 0;
 
 
     public boolean isEmpty(){ return top == null; }
-    public void clear(){
+    public ElementoPila getTop(){
 
-        while(enPila >= 0){
+        if(isEmpty()){
 
-            this.push();
+            return null;
+
+        }else{
+
+            return this.top;
 
         }
 
     }
 
-    public void push(Object insertado){
+    public int getElemEnPila(){return elemEnPila;}
+    public void clear(){
 
-        if (!isEmpty()){
+        int contador = elemEnPila;
 
+        while(contador >= 0){
 
+            pop();
+            contador = contador - 1;
 
         }
 
-        top = insertado;
+    }
 
-        this.enPila = this.enPila + 1;
+    public void push(ElementoPila insertado){
+
+        if (!isEmpty()){
+
+            insertado.setBefore(top);
+
+        }
+
+        this.top = insertado;
+        elemEnPila = elemEnPila + 1;
+
+    }
+
+    public ElementoPila pop(){
+
+        ElementoPila topAntiguo;
+
+        if (isEmpty()){
+
+            return null;
+
+        }else{
+
+            topAntiguo = top;
+            top = top.getBefore();
+
+        }
+
+        this.elemEnPila = this.elemEnPila - 1;
+        return topAntiguo;
 
     }
 
